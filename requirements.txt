@@ -1,6 +1,6 @@
 # Web Framework
 fastapi>=0.104.0
-hypercorn
+hypercorn==0.14.4
 
 # Environment Variables
 python-dotenv>=1.0.0
