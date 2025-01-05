@@ -100,11 +100,11 @@ class ObservationMutations:
             "date": datetime.utcnow().isoformat()[:10]  # YYYY-MM-DD
         }
 
-        await db.resources.insert_one(observation_doc)
+        await db.observations.insert_one(observation_doc)
         return Observation.from_mongo(observation_doc)
 
     @strawberry.mutation
     async def delete_observation(self, id: str) -> bool:
         db = await get_database()
-        result = await db.resources.delete_one({"id": id, "resourceType": "Observation"})
+        result = await db.observations.delete_one({"id": id, "resourceType": "Observation"})
         return result.deleted_count > 0

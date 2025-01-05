@@ -8,7 +8,7 @@ class ObservationQueries:
     @strawberry.field
     async def observation(self, id: str) -> Optional[Observation]:
         db = await get_database()
-        data = await db.resources.find_one({"id": id, "resourceType": "Observation"})
+        data = await db.observations.find_one({"id": id, "resourceType": "Observation"})
         return Observation.from_mongo(data)
 
     @strawberry.field
@@ -36,7 +36,7 @@ class ObservationQueries:
             if value_max is not None:
                 query["value"]["$lte"] = value_max
             
-        cursor = db.resources.find(query)
+        cursor = db.observations.find(query)
         observations = []
         async for doc in cursor:
             observations.append(Observation.from_mongo(doc))
